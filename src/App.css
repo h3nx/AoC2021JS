@@ -1,38 +1,69 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color:#cccccc;
+  background-color: #0f0f23;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+a {
+  color: #009900;
+  text-decoration: none;
+}
+a:hover {
+  color: #00cc00;
 }
 
-.App-link {
-  color: #61dafb;
+
+.solution {
+  margin:40px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.f { display: flex; }
+.r { flex-direction: row }
+.c { flex-direction: column }
+
+/* vertical stuff */
+.v { align-items: center }
+.vs { align-items: flex-start }
+.ve { align-items: flex-end }
+
+/* horizontal stuff */
+.h { justify-content: center }
+.hs { justify-content: flex-start }
+.he { justify-content: flex-end }
+
+/* wraps */
+.w { flex-wrap: wrap; }
+.wr { flex-wrap: wrap-reverse; }
+
+.sa { justify-content: space-around }
+.sb { justify-content: space-between }
+.se { justify-content: space-evenly }
+
+.fdr {flex-direction: row;}
+.fdrr {flex-direction: row-reverse;}
+.fdc {flex-direction: column;}
+.fdcr {flex-direction: row-reverse;}
+
+.fg {
+  flex: 1;
 }
