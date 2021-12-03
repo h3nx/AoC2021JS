@@ -17,3 +17,7 @@ export function reverseString(str) {
 export function stringToIntegerArr(arr) {
     return arr.map((item) => {return parseInt(item)});
 }
+
+export function splitBySpace(arr) {
+    return arr.map((line) => {return line.split(" ")});
+}
