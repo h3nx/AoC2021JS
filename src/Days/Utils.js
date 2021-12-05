@@ -21,3 +21,13 @@ export function stringToIntegerArr(arr) {
 export function splitBySpace(arr) {
     return arr.map((line) => {return line.split(" ")});
 }
+
+export function printTable(arr,size) {
+    for(let y = 0; y < size; y++) {
+        let line = "";
+        for(let x = 0; x < size; x++) {
+            line+=arr[y*size+x]+"\t";
+        }
+        console.log(line);
+    }
+}
