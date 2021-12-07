@@ -22,6 +22,48 @@ export function Solution7() {
     
     function solve(data) {
         console.log(data);
+        let nr = Utils.stringToIntegerArr(data[0].split(",")).sort((a,b)=>a-b);
+        console.log(nr);
+        
+        const avg = Math.ceil(Utils.getAverage(nr));
+        console.log(avg);
+        
+        const med = Utils.getMedian(nr);
+        console.log(med);
+        
+        
+        let sum = 0;
+        
+        
+        nr.forEach((element)=> {
+            let s =  Math.abs(element-med);
+            sum+=s;
+            // console.log(element, s);
+        })
+        setAns1(sum);
+        
+        sum = 0;
+        
+        
+        nr.forEach((element)=> {
+            let s =  Math.abs(element-avg);
+            for(let i = 1; i<= s; i++) {
+                sum+=i;
+                
+            }
+            // console.log(element, s);
+        });
+        let sum2 = 0;
+        nr.forEach((element)=> {
+            let s =  Math.abs(element-avg+1);
+            for(let i = 1; i<= s; i++) {
+                sum2+=i;
+                
+            }
+            // console.log(element, s);
+        });
+        console.log(sum,sum2);
+        setAns2(sum2);
         
     }
     

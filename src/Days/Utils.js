@@ -31,3 +31,14 @@ export function printTable(arr,size) {
         console.log(line);
     }
 }
+
+
+export function getAverage(arr) {
+    let sum = 0;
+    arr.forEach((nr)=>sum+=nr);
+    console.log(sum,arr.length);
+    return sum/arr.length;
+}
+export function getMedian(arr) {
+    return arr[Math.floor(arr.length/2)];
+}
