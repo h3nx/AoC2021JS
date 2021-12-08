@@ -41,29 +41,16 @@ export function Solution7() {
             // console.log(element, s);
         })
         setAns1(sum);
-        
         sum = 0;
-        
-        
         nr.forEach((element)=> {
-            let s =  Math.abs(element-avg);
+            let s =  Math.abs(element-avg+1);
             for(let i = 1; i<= s; i++) {
                 sum+=i;
                 
             }
             // console.log(element, s);
         });
-        let sum2 = 0;
-        nr.forEach((element)=> {
-            let s =  Math.abs(element-avg+1);
-            for(let i = 1; i<= s; i++) {
-                sum2+=i;
-                
-            }
-            // console.log(element, s);
-        });
-        console.log(sum,sum2);
-        setAns2(sum2);
+        setAns2(sum);
         
     }
     
