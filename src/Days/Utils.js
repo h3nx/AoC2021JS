@@ -31,6 +31,40 @@ export function printTable(arr,size) {
         console.log(line);
     }
 }
+export function printTable2(arr,size) {
+    console.log(" ");
+    for(let y = 0; y < size; y++) {
+        let line = "";
+        for(let x = 0; x < size; x++) {
+            if(arr[y][x]===0)
+            line+="_"+"";
+            else
+            line+=arr[y][x]+"";
+        }
+        console.log(line);
+    }
+}
+
+export function twoDtoOneD(x, y, width) {
+    return y*width+x;
+}
+
+export function getNeighbours2d(x, y, xSize, ySize, corners = false) {
+    let n = [];
+    
+    for(let d = 0; d < 360; d += corners ? 45 : 90) {
+        let [xx,yy] = [
+            x+Math.round(Math.sin(d * (Math.PI / 180))),
+            y+Math.round(Math.cos(d * (Math.PI / 180)))
+        ];
+        // console.log(xx,yy);
+        if(0 <= (xx) && (xx) <= xSize && 0 <= (yy) && (yy) <= ySize)
+            n.push([xx,yy]);
+    }
+    return n;
+}
+
+
 
 
 export function getAverage(arr) {
