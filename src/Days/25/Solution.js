@@ -22,7 +22,12 @@ export function Solution25() {
     
     function solve(data) {
         console.log(data);
+          
+        let sum1 = 0;
+        setAns1(sum1);
         
+        let sum2 = 0;
+        setAns2(sum2);
     }
     
     
