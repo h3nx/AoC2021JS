@@ -102,6 +102,22 @@ export function matchChars2(str, matching) {
     return matching.length === count;
 }
 
+
+export function isLower(char) {
+    return char === char.toLowerCase();
+}
+export function isUpper(char) {
+    return char === char.toUpperCase();
+}
+
+
+
+
+
+
+
+
+
 /*
 
 be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
