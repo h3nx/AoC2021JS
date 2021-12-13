@@ -44,6 +44,22 @@ export function printTable2(arr,size) {
         console.log(line);
     }
 }
+export function printTable3(arr,sizex,sizey) {
+    console.log(" ");
+    let total = "";
+    for(let y = 0; y < sizey; y++) {
+        let line = "";
+        for(let x = 0; x < sizex; x++) {
+            if(arr[y][x]===0)
+            line+="_"+"";
+            else
+            line+=arr[y][x]+"";
+        }
+        total += line+"\n";
+        console.log(line);
+    }
+    return total
+}
 
 export function twoDtoOneD(x, y, width) {
     return y*width+x;
