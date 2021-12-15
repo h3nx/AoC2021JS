@@ -60,7 +60,24 @@ export function printTable3(arr,sizex,sizey) {
     }
     return total
 }
-
+export function printTable15(arr,sizex,sizey) {
+    console.log(" ");
+    let total = "";
+    for(let y = 0; y < sizey; y++) {
+        let line = "";
+        for(let x = 0; x < sizex; x++) {
+            line+=arr[y][x]+"";
+            if(x%10===9)
+                line+=" ";
+        }
+        line += "\n";
+        if(y%10===9)
+            line+="\n";
+        total += line;
+        console.log(line);
+    }
+    return total
+}
 export function twoDtoOneD(x, y, width) {
     return y*width+x;
 }
