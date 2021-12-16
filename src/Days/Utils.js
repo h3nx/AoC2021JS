@@ -144,7 +144,9 @@ export function isUpper(char) {
 }
 
 
-
+export function hex2bin(hex){
+    return (parseInt(hex, 16).toString(2)).padStart(4, '0');
+}
 
 
 
