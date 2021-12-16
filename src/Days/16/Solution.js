@@ -41,7 +41,7 @@ export function Solution16() {
         let sum1 = sumVersion(shell);
         setAns1(sum1);
         
-        let sum2 = 0;
+        let sum2 = calculate(shell);
         setAns2(sum2);
     }
     
@@ -51,7 +51,57 @@ export function Solution16() {
             childrenSum += sumVersion(message.messages[ind]);
         return message.version + childrenSum;
     }
-    
+    function calculate(message) {
+        let value = 0;
+        if(message.id === 0) {
+            //add
+            message.messages.forEach((m)=>{value += calculate(m)});
+        } 
+        if(message.id === 1) {
+            //multi
+            value = calculate(message.messages[0]);
+            for(let i = 1; i < message.messages.length; i++) {
+                value *= calculate(message.messages[i]);
+            }
+        } 
+        if(message.id === 2) {
+            //min
+            value = 10000;
+            message.messages.forEach((m)=>{value = Math.min(value,calculate(m))});
+        } 
+        if(message.id === 3) {
+            //max
+            value = 0;
+            message.messages.forEach((m)=>{value = Math.max(value,calculate(m))});
+        } 
+        
+        if(message.id === 4) {
+            //literal
+            value = message.literal;
+        } 
+        if(message.id === 5) {
+            //greater than
+            if(calculate(message.messages[0]) > calculate(message.messages[1]))
+                return 1;
+            else
+                return 0;
+        } 
+        if(message.id === 6) {
+            //less than
+            if(calculate(message.messages[0]) < calculate(message.messages[1]))
+                return 1;
+            else
+                return 0;
+        } 
+        if(message.id === 7) {
+            //equals
+            if(calculate(message.messages[0]) === calculate(message.messages[1]))
+                return 1;
+            else
+                return 0;
+        } 
+        return value
+    }
     
     function Message(version, id, rest) {
         this.version = version;
