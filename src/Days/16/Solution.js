@@ -34,25 +34,30 @@ export function Solution16() {
         
         
         
-        let pversion = parseInt( total.substring(0,3), 2 );
-        let pId = parseInt( total.substring(3,6), 2 );
-        
-        let shell = new Message(pversion, pId, total.substring(6));
+        let shell = createMessage(total);
         parseMessage(shell);    
         console.log("SHELL",shell);    
         
-        let sum1 = 0;
+        let sum1 = sumVersion(shell);
         setAns1(sum1);
         
         let sum2 = 0;
         setAns2(sum2);
     }
     
+    function sumVersion(message) {
+        let childrenSum = 0;
+        for(let ind in message.messages)
+            childrenSum += sumVersion(message.messages[ind]);
+        return message.version + childrenSum;
+    }
+    
+    
     function Message(version, id, rest) {
         this.version = version;
         this.id = id;
         this.rest = rest;
-        this.messages = null;
+        this.messages = [];
         this.literal = 0;
         this.parsed = false;
     }
@@ -70,70 +75,95 @@ export function Solution16() {
         }
         return rest;
     }
-    
     function createMessage(string) {
-        return new Message(string.substring(0,3),string.substring(3,6),string.substring(6));
+        let orig =  new Message(parseInt(string.substring(0,3),2),parseInt(string.substring(3,6),2),string.substring(6));
+        // console.log("new message",orig);
+        return orig;
     }
-    
     function parseOperator(message) {
-        console.log("- operator",message.rest);
+        // console.log("- operator",message.rest);
         if(message.rest === "")
             return "";
 
+        let restOfMessage = "";
         let l = message.rest.substring(0,1);
         let m = message.rest.substring(1);
         
-        console.log("-", l === "0" ? "bits" :"packets", m);
+        // console.log("-", l === "0" ? "bits" :"packets", m);
         if(l === "0") {
             // bits
             let nrBits = m.substring(0,15);
             let bits = parseInt(nrBits,2);
-            m = m.substring(15);
-            console.log("-", bits, "bits", m);
-            
+            let subm = m.substring(15,15+bits);
+            m = m.substring(15+bits);
+            // console.log("-", bits, "bits", m);
+            let iterations = 0;
+            while(bits > 0 && iterations < 5) {
+                // console.log(iterations, bits);
+                let temp = createMessage(subm);
+                message.messages.push(temp);
+                let notUsed = parseMessage(message.messages[message.messages.length-1]);
+                // console.log("REST?",notUsed);
+                let count = subm.length-notUsed.length;
+                // console.log("bits used", count);
+                bits -= count;
+                
+                subm = notUsed;
+                iterations++;
+            }
             
         } else {
             // packets
             let nrBits = m.substring(0,11);
             let packets = parseInt(nrBits,2);
             m = m.substring(11);
-            console.log("-", packets, "packets", nrBits, m);
+            // console.log("-", packets, "packets", nrBits, m);
             
             for(let i =0; i < packets; i++) {
                 let temp = createMessage(m);
-                console.log(temp);
+                message.messages.push(temp);
+                m = parseMessage(temp);
+                
+                // console.log(temp);
             }
             
             
         }
         
         
-        let sub = [];
-        let restTrueLength = 1;
-        let restOfMessage = "";
-        
-        
-        return restOfMessage;
+        return m;
             
     }
     function parseLiteral(message) {
-        console.log("\t literal",message);
+        // console.log("- literal", message.rest);
         let m = message.rest;
-        console.log(m.length,m);
+        // console.log(m.length,m);
         let nrBin = "";
+        let print = "";
         while(m.length > 4) {
-            nrBin+=m.substring(1,5);
-            console.log(nrBin);
-            
-            if(m[0] === 0) {
+            print += m.substring(0,1) + " " + m.substring(1,5)+ ",  ";
+            nrBin += m.substring(1,5);
+            // console.log(nrBin);
+            if(m[0] === "0") {
+                m = m.substring(5);
                 break;
             }             
             m = m.substring(5);
         }
         message.literal = parseInt(nrBin,2);
-        console.log(message);
+        // console.log("RESULT LITERAL", message.literal, print);
         return m;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
