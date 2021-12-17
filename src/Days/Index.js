@@ -45,7 +45,7 @@ function Index() {
             <Link to={"/solutions/14"}>Day 14 **</Link>
             <Link to={"/solutions/15"}>Day 15 **</Link>
             <Link to={"/solutions/16"}>Day 16 </Link>
-            <Link to={"/solutions/16"}>Day 17 </Link>
+            <Link to={"/solutions/17"}>Day 17 </Link>
             <Link to={"/solutions/16"}>Day 18 </Link>
             <Link to={"/solutions/16"}>Day 19 </Link>
             <Link to={"/solutions/16"}>Day 20 </Link>
