@@ -36,6 +36,16 @@ export function Solution18() {
         this.getRoot = function() {
             return this.parent === null ? this : this.parent.getRoot();
         }
+        this.leftmost = function() {
+            let temp = this.getRoot();
+            while(temp.value == -1) {
+                if(temp.left !== null)
+                    temp = temp.left;
+                else if(temp.left !== null)
+                    temp = temp.right;
+            }
+            return temp;
+        }
         this.getDepth = function() {
             let depth = 0;
             let current = this;
@@ -95,21 +105,21 @@ export function Solution18() {
             return current;
         }
         this.explode = function() {
-            console.log("explode");
+            // console.log("explode", this.print());
             if(this.right === null || this.left === null)
                 return false;
-            console.log("\t",this.getRoot().print());
+            // console.log("\t",this.getRoot().print());
             let l = this.nextLeft();
             let r = this.nextRight();
             
-            console.log(
-                "\t",
-                l === null ? " x ":l.print(),
-                ",",
-                this.print(), 
-                ",", 
-                r === null ? " x ":r.print()
-            );
+            // console.log(
+            //     "\t",
+            //     l === null ? " x ":l.print(),
+            //     ",",
+            //     this.print(), 
+            //     ",", 
+            //     r === null ? " x ":r.print()
+            // );
             if(l !== null) {
                 if(this.left !== null) {
                     l.value += this.left.value;
@@ -127,9 +137,9 @@ export function Solution18() {
             this.left = null;
             this.right = null;
             this.value = 0;
-            console.log("\t",this.getRoot().print());
-            if(l !== null)
-                l.reduce();
+            // console.log("\t",this.getRoot().print());
+            // if(l !== null)
+            //     l.reduce();
             // if(r !== null)
             //     r.reduce();
             // this.parent.reduce();
@@ -137,30 +147,46 @@ export function Solution18() {
             
         }
         this.split = function() {
-            console.log("split", this.print());
-            console.log("\t",this.getRoot().print());
+            // console.log("split", this.print());
+            // console.log("\t",this.getRoot().print());
             this.left = new Node(this, Math.floor(this.value/2));
             this.right = new Node(this, Math.ceil(this.value/2));
             this.value = -1;
-            console.log("\t",this.getRoot().print());
-            this.parent.reduce();
+            // console.log("\t",this.getRoot().print());
+            // this.parent.reduce();
             // this.reduce();
             return true;
         }
         this.reduce = function() {
+            // console.log(this.getRoot().print());
+            if(this.reduceExplosion())
+                return true;
+            if(this.reduceSplit())
+                return true;
+            return false;
+        }
+        this.reduceExplosion = function() {
             let depth = this.getDepth();
-            // console.log("reduce", depth);
-            if(this.left !== null) {
-                this.left.reduce();
-            }
             if(depth > 4) {
                 this.parent.explode();
+                return true;
             }
-            if(this.right !== null) {
-                this.right.reduce();
+            let r = this.nextRight();
+            if(r != null) {
+                if(r.reduceExplosion())
+                    return true;
             }
+            return false;
+        }
+        this.reduceSplit = function() {
             if(this.value > 9) {
                 this.split();
+                return true;
+            }
+            let r = this.nextRight();
+            if(r != null) {
+                if(r.reduceSplit())
+                    return true;
             }
             return false;
         }
@@ -216,34 +242,64 @@ export function Solution18() {
             let prevPrint = current.print();
             let n = parsed[i].print();
             current = addTrees(current,parsed[i]);
-            console.log(prevPrint," + ",n, " = \n", current.print());
-            console.log(current);
+            // console.log(prevPrint," + ",n, " = \n", current.print());
+            // console.log(current);
             
         }
-        let temp = parse("[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]");
-        console.log("TEMP\n",temp.print());
-        console.log(temp.reduce());
-        console.log(temp.print());
-        console.log(parse("[[1,2],[[3,4],5]]").sum());
-        console.log(parse("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]").sum());
-        console.log(parse("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").sum());
+        // let temp = parse("[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]");
+        // console.log("TEMP\n",temp.print());
+        // while(temp.leftmost().reduce());
+        
+        // console.log(temp.print());
+        // console.log(parse("[[1,2],[[3,4],5]]").sum());
+        // console.log(parse("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]").sum());
+        // console.log(parse("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").sum());
         
         
         let sum1 = current.sum();
         console.log(sum1);
         setAns1(sum1);
         
-        let sum2 = 0;
+        
+        let parsed2 = data.map((line)=> {
+            return parse(line);
+        });
+        
+        
+        
+        let max = 0;
+        data.forEach((line1)=> {
+            data.forEach((line2)=> {
+                let s1 = addTrees(parse(line1),parse(line2)).sum();
+                if(s1 > max)
+                    max = s1;
+                let s2 = addTrees(parse(line2),parse(line1)).sum()
+                if(s2 > max)
+                    max = s2;
+                
+                
+            });
+        });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        let sum2 = max;
         setAns2(sum2);
     }
     function addTrees(right, left) {
         let root = new Node(null, -1, right, left);
         left.parent = root;
         right.parent = root;
-        console.log("reduce:",root.print());
-        root.reduce();
+        // console.log("reduce:",root.print());
+        while(root.leftmost().reduce());
         return root;
-        
     }
     return (
         <div>
@@ -253,3 +309,25 @@ export function Solution18() {
     )
 }
 
+
+
+/**if(depth > 4) {
+                return this.parent.explode();
+            }
+            while(true) {
+                if(this.left !== null) {
+                    if(!this.left.reduce())
+                        break;
+                } else 
+                break;
+            }
+            while(true) {
+                if(this.right !== null) {
+                    if(!this.right.reduce())
+                        break;
+                } else 
+                break;
+            }
+            if(this.value > 9) {
+                return this.split();
+            } */
