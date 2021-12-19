@@ -11,13 +11,15 @@ export function Solution18() {
     // eslint-disable-next-line
     const [answer2, setAns2] = useState(-1);
     
+    // onload
     useEffect(()=> {
+        console.time("total");
         fetch(rawData)
         .then(r => r.text())
         .then(text => {
             solve(Utils.SplitByNewLine(text));
+            console.timeEnd("total");
         });
-        
     },[]);
     
     
@@ -228,6 +230,7 @@ export function Solution18() {
     function solve(data) {
         console.log(data);
           
+        console.time("1");
         let current = null;
         let parsed = data.map((line)=> {
             return parse(line);
@@ -259,13 +262,13 @@ export function Solution18() {
         let sum1 = current.sum();
         console.log(sum1);
         setAns1(sum1);
-        
+        console.timeEnd("1");
         
         let parsed2 = data.map((line)=> {
             return parse(line);
         });
         
-        
+        console.time("2");
         
         let max = 0;
         data.forEach((line1)=> {
@@ -276,8 +279,6 @@ export function Solution18() {
                 let s2 = addTrees(parse(line2),parse(line1)).sum()
                 if(s2 > max)
                     max = s2;
-                
-                
             });
         });
         
@@ -292,6 +293,7 @@ export function Solution18() {
         
         let sum2 = max;
         setAns2(sum2);
+        console.timeEnd("2");
     }
     function addTrees(right, left) {
         let root = new Node(null, -1, right, left);
