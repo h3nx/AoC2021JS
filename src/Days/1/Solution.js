@@ -31,7 +31,7 @@ export function Solution1() {
         });
         setAns1(count);
         
-        count = -1;
+        count = 0;
         previous = 0;
         
         for(let i = 0; i < data.length-3; i++) {

@@ -22,17 +22,66 @@ export function Solution4() {
     
     function solve(data) {
         console.log(data);
+        p1(data);
+        p2(data);
+        
+    }
+    
+    function p1(inData) {
+        console.group("p1");
+        let data = [...inData];
+        console.log(data);
         data = data.map((str) => {return Utils.ReplaceNewlineWithSpace(str)});
         const draws = data[0].split(",");
-        console.log(draws);
+        console.log("draws",draws);
         data.splice(0,1);
         data = data.map((line)=>{return line.replace(/ +/g,',').replace(/,+/g,",")});
-        console.log(data);
+        console.log("data",data);
         
         // data = data.map((line)=>{return line.replace(/,,,/,",").replace(/,,/,",")});
         let nr = data.map((line)=>{return line.split(",").filter((nr)=>nr===""?false:true)});
         // console.log(data, draws);
+        console.log("nr",nr);
+        
+        
+        for(let i = 0; i < draws.length; i++) {
+            nr.forEach((table, ind)=> {
+                nr[ind] = table.map((index) => {return index === draws[i]?"":index});
+            });
+            let w = -1;
+            let s = 0;
+            for(let x = 0;x < nr.length; x++) {
+                if(checkIfWinner(nr[x])) {
+                    w = x;
+                    s = returnSum(nr[x]);
+                    console.log("winner",x,i,"   ",s, draws[i], s*draws[i]);
+                    setAns1(s*draws[i]);
+                }
+            }
+            if(w !== -1) {
+                break;
+
+            }
+            
+        }
         console.log(nr);
+        console.groupEnd();
+
+
+    }
+    function p2(inData) {
+        console.groupCollapsed("p2");
+        let data = inData.map((str) => {return Utils.ReplaceNewlineWithSpace(str)});
+        const draws = data[0].split(",");
+        console.log(draws);
+        data.splice(0,1);
+        data = data.map((line)=>{return line.replace(/ +/g,',').replace(/,+/g,",")});
+        console.log("data",data);
+        
+        // data = data.map((line)=>{return line.replace(/,,,/,",").replace(/,,/,",")});
+        let nr = data.map((line)=>{return line.split(",").filter((nr)=>nr===""?false:true)});
+        // console.log(data, draws);
+        console.log("nr",nr);
         
         
         for(let i = 0; i < draws.length; i++) {
@@ -62,9 +111,12 @@ export function Solution4() {
         }
         
         console.log(nr);
-        
+        console.groupEnd();
+
     }
-    
+
+
+
     function printTable(table) {
         for(let x = 0; x < 5; x++)
             console.log(

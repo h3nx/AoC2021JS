@@ -24,7 +24,8 @@ export function Solution25() {
     
     function solve(data) {
         console.log(data);
-
+        console.time("p1");
+        
         let map = data.map((line)=>{return line.split("")});
         console.log(map);
         // Utils.printTable25(map,map[0].length,map.length);
@@ -69,40 +70,22 @@ export function Solution25() {
 
             if(moves === 0) {
                 console.log("NO MORE MOVES",steps);
+                setAns1(steps);
                 break;
             }
         }
 
 
-
-
-
-
-        console.time("p1");
-          
-
-
-        let sum1 = 0;
-        setAns1(sum1);
         console.timeEnd("p1");
         
 
-
-
-
-
-
-
-
-        let sum2 = 0;
-        setAns2(sum2);
     }
     
     
     return (
         <div>
             <div>{answer1}</div>
-            <div>{answer2}</div>
+            <div>{[...Array(49)].map((s)=>{return("*")})}</div>
         </div>
     )
 }

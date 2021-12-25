@@ -131,6 +131,7 @@ export function Solution15() {
         <div>
             <div>{answer1}</div>
             <div>{answer2}</div>
+            <div>Takes a few minutes, check console for progress, will be done by 249k iterations</div>
         </div>
     )
 }

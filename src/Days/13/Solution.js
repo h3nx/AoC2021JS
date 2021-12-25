@@ -36,7 +36,7 @@ export function Solution13() {
         console.log(folds[0]);
         
         let unique = [];
-        folds.forEach((fold)=> {
+        folds.forEach((fold, foldIndex)=> {
             const nr = parseInt(fold[1]);
             const way = fold[0]
             // console.log(way, nr);
@@ -62,13 +62,13 @@ export function Solution13() {
                 }
             }
             coords = unique = uniqueStuff(coords);
+            if(foldIndex === 0) {
+                setAns1(unique.length);
+            }
             // console.log(coords,unique);
         })
         
         
-        console.log(unique);
-        let sum1 = unique.length;
-        setAns1(sum1);
         
         
         
