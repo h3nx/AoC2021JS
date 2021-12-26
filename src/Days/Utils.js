@@ -9,6 +9,9 @@ export function SplitByNewLine(data) {
 export function ReplaceNewlineWithSpace(str) {
     return str.replace(/\n|\r/g,' ');
 }
+export function ReplaceNewlineWithNothing(str) {
+    return str.replace(/\n|\r/g,'');
+}
 
 export function reverseString(str) {
     return str.split("").reverse().join("");
@@ -93,13 +96,28 @@ export function printTable25(arr,sizex,sizey) {
     }
     return total
 }
+export function printTable20(arr,sizex,sizey) {
+    console.log("arr", sizex, sizey);
+    let total = "";
+    for(let y = 0; y < sizey; y++) {
+        let line = ""+y+"\t";
+        for(let x = 0; x < sizex; x++) {
+            line+=arr[y][x];
+        }
+        line += "\n";
+        total += line;
+        console.log(line);
+    }
+    return total;
+}
 export function twoDtoOneD(x, y, width) {
     return y*width+x;
 }
 
-export function getNeighbours2d(x, y, xSize, ySize, corners = false) {
+export function getNeighbours2d(x, y, xSize, ySize, corners = false, center = false) {
     let n = [];
-    
+    if(center)
+    n.push([x,y]);
     for(let d = 0; d < 360; d += corners ? 45 : 90) {
         let [xx,yy] = [
             x+Math.round(Math.sin(d * (Math.PI / 180))),
@@ -112,7 +130,16 @@ export function getNeighbours2d(x, y, xSize, ySize, corners = false) {
     return n;
 }
 
-
+export function copy2dArr(arr){
+    let temp = [];
+    for(let y = 0; y < arr.length; y++) {
+        temp.push([]);
+        for(let x = 0; x < arr[y].length; x++) {
+            temp[y].push(arr[y][x])
+        }
+    }
+    return temp;
+}
 
 
 export function getAverage(arr) {
