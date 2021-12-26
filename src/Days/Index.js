@@ -49,11 +49,11 @@ function Index() {
             <Link to={"/solutions/18"}>Day 18 **</Link>
             <Link to={"/solutions/19"}>Day 19 **</Link>
             <Link to={"/solutions/20"}>Day 20 **</Link>
-            <Link to={"/solutions/21"}>Day 21 </Link>
-            <Link to={"/solutions/22"}>Day 22 </Link>
-            <Link to={"/solutions/23"}>Day 23 </Link>
-            <Link to={"/solutions/24"}>Day 24 </Link>
-            <Link to={"/solutions/25"}>Day 25 </Link>
+            <Link to={"/solutions/21"}>Day 21 **</Link>
+            <Link to={"/solutions/22"}>Day 22 **</Link>
+            <Link to={"/solutions/23"}>Day 23 **</Link>
+            <Link to={"/solutions/24"}>Day 24 **</Link>
+            <Link to={"/solutions/25"}>Day 25 **</Link>
         </div>
     ); 
 }
